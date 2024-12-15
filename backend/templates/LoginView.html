@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'icon.ico' %}">
+    <title>Вход</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+</head>
+<div>
+    {% for message in messages %}
+        <h4 class="warning-sign">{{message}}</h4>
+        {% endfor %}
+</div>
+<div class="auth-container" id="phone-input">
+<form id="phone-form">
+    <h1>Войти</h1>
+    <div class="input-field">
+        <input type="tel" name="phone" placeholder="Номер телефона" required>
+    </div>
+    <button type="button" class="button" id="get-code">Получить код</button>
+</form>
+</div>
+
+<form id="sms-form" class="hidden">
+    {% csrf_token %}
+    <h3>Введите код из SMS</h3>
+    <div class="form-group sms-inputs">
+        <input type="text" class="sms-input" maxlength="1" required>
+        <input type="text" class="sms-input" maxlength="1" required>
+        <input type="text" class="sms-input" maxlength="1" required>
+        <input type="text" class="sms-input" maxlength="1" required>
+        <input type="text" class="sms-input" maxlength="1" required>
+        <input type="text" class="sms-input" maxlength="1" required>
+    </div>
+
+    <button type="button" class="button" id="next">Далее</button>
+
+    <p><a href="#" id="resend-code">Отправить код ещё раз</a></p>
+</form>
+    <a class="small-text" href="/signup"> Создать аккаунт </a>
+    <form id="sms-form">
+    <button type="button" class="button" id="without-sms"> Войти по почте </button> 
+</form>
+
+<form method="POST" id="email-form" class="hidden" action="">
+    {% csrf_token %}
+    <div>
+        <h3 class="warning-sign">!ЯВЛЯЕТСЯ ВРЕМЕННЫМ РЕШЕНИЕМ НА ЭТАПЕ РАЗРАБОТКИ!</h3></div>
+    <div class="input-field">
+        <h4>Введите почту и номер телефона, привязанный к ней</h4>
+        <input type="tel" name="phone_login" placeholder="Номер телефона" required>
+        <input type="email" name="email_login" placeholder="Email" required>
+    </div>
+    <button class="button">Далее</button>
+</form>
+
+<script>
+    document.getElementById('get-code').addEventListener('click', function() {
+        // Здесь можно добавить логику для отправки кода на номер телефона
+        document.getElementById('sms-form').classList.remove('hidden');
+        document.getElementById('phone-input').classList.add('hidden');
+        document.getElementById('sms-form').classList.add('auth-container');
+    });
+
+    document.getElementById('without-sms').addEventListener('click', function() {
+        // Здесь можно добавить логику для отправки кода на email
+        document.getElementById('email-form').classList.remove('hidden');
+        document.getElementById('phone-input').classList.add('hidden');
+        document.getElementById('sms-form').classList.add('hidden');
+        document.getElementById('email-form').classList.add('auth-container');
+    });
+
+    document.getElementById('resend-code').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Здесь можно добавить логику для повторной отправки кода
+        alert('Код отправлен ещё раз!');
+    });
+
+    document.getElementById('next').addEventListener('click', function() {
+        // Здесь можно добавить логику для проверки введенного SMS-кода
+        alert('Код проверен!'); // Пример действия после нажатия на кнопку "Далее"
+    });
+    
+    // Добавляем логику для автоматического перехода к следующему полю ввода
+    const smsInputs = document.querySelectorAll('.sms-input');
+    
+    smsInputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+            if (this.value.length === 1 && index < smsInputs.length - 1) {
+                smsInputs[index + 1].focus();
+            } else if (this.value.length === 0 && index > 0) {
+                smsInputs[index - 1].focus();
+            }
+        });
+    });
+</script>
+
+
+<style>
+    .form-group {
+            margin-bottom: 15px;
+        }
+        .sms-inputs {
+            display: flex;
+            justify-content: space-between;
+        }
+        .sms-input {
+            width: 40px; /* Ширина каждого поля */
+            height: 40px; /* Высота каждого поля */
+            text-align: center;
+            font-size: 18px;
+            margin-right: 5px; /* Отступ между полями */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #6a11cb, #2575fc);
+        font-family: Arial, sans-serif;
+    }
+    .warning-sign{
+                color:red;
+            }
+    h1 {
+        color: white;
+        margin-bottom: 20px;
+    }
+    .profile-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        text-align: center;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .input-field {
+        margin-bottom: 15px;
+    }
+    .gender-options {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .button {
+        background-color: #9b59b6;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+    .agreement-text {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .images-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 20px;
+    }
+    img {
+        max-width: 50px;
+    }
+    nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border-top: 1px solid #e5e7eb; /* border-gray-200 */
+        padding: 10px 0; /* py-10 */
+    }
+    .menu-center {
+        display: flex;
+        justify-content: center; /* flex justify-center */
+        gap: 3rem; /* space-x-12 */
+    }
+    a {
+        color: #6b5b95; /* text-purple-700 */
+    }
+    .auth-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        padding: 30px;
+        width: 90%; /* Измените ширину на 90% для мобильных устройств */
+        max-width: 400px; /* Максимальная ширина блока */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin: 20px; /* Добавьте отступы сверху и снизу */
+}
+
+@media (max-width: 600px) {
+.auth-container {
+    margin: 20px; /* Отступы для мобильных устройств */
+}
+}
+</style>

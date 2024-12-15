@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'icon.ico' %}">
+    <title>Соглашение</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+</head>
+<body>
+
+    <div class="scroll-container">
+        <img src="static/info.png" alt="Большая картинка" class="scroll-image">
+    </div>
+    
+</body>
+
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden; /* Скрыть прокрутку страницы */
+    }
+    .scroll-container {
+        height: 100vh; /* Высота контейнера равна высоте окна */
+        overflow-y: scroll; /* Включить вертикальную прокрутку */
+        scroll-behavior: smooth; /* Плавная прокрутка */
+    }
+    .scroll-image {
+        width: 100%; /* Ширина картинки равна ширине окна */
+        height: auto; /* Высота картинки автоматически подстраивается */
+    }
+</style>

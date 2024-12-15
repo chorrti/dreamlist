@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'icon.ico' %}">
+    <title>Регистрация</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+</head>
+<body>
+
+    <h1>dreamlist</h1>
+    
+    <div class="profile-container">
+        <div>
+            <style>
+                h4{
+                    color:red;
+                }
+            </style>
+            {% for message in messages %}
+            <h4>{{message}}</h4>
+            {% endfor %}
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+        <h2>Создание профиля</h2>
+    
+        <div class="input-field">
+            <input type="text" placeholder="Имя" required name="firstname">
+        </div>
+        
+        <div class="input-field">
+            <input type="text" placeholder="Фамилия" required name="secondname">
+        </div>
+        
+        <div class="input-field">
+            <input type="date" required name="date_of_birth">
+        </div>
+    
+        <div class="input-field gender-options">
+            <label><input type="radio" name="gender" value="male"> Мужской</label>
+            <label><input type="radio" name="gender" value="female"> Женский</label>
+            <label><input type="radio" name="gender" value="not_specified" checked> Не указывать</label>
+        </div>
+    
+        <div class="input-field">
+            <input type="tel" placeholder="Телефон" required name="phone">
+        </div>
+    
+        <div class="input-field">
+            <input type="email" placeholder="Электронная почта" required name="email">
+        </div>
+        <button class="button"> Далее </button>
+        
+        
+    </form>
+        <a class="small-text" href="/login">  Уже есть аккаунт? </a>
+        <hr>
+        <a href="{% url 'about' %}" class="agreement-text">Нажимая далее, вы принимаете условия пользовательских соглашений</a>
+    </div>
+</body>
+
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, #6a11cb, #2575fc);
+        font-family: Arial, sans-serif;
+    }
+    h1 {
+        color: white;
+        margin-bottom: 20px;
+    }
+    .profile-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        text-align: center;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .input-field {
+        margin-bottom: 15px;
+    }
+    .gender-options {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .button {
+        background-color: #9b59b6;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+    .agreement-text {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .images-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 20px;
+    }
+    img {
+        max-width: 50px;
+    }
+    nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border-top: 1px solid #e5e7eb; /* border-gray-200 */
+        padding: 10px 0; /* py-10 */
+    }
+    .menu-center {
+        display: flex;
+        justify-content: center; /* flex justify-center */
+        gap: 3rem; /* space-x-12 */
+    }
+    a {
+        color: #6b5b95; /* text-purple-700 */
+    }
+    .auth-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        padding: 30px;
+        width: 90%; /* Измените ширину на 90% для мобильных устройств */
+        max-width: 400px; /* Максимальная ширина блока */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin: 20px; /* Добавьте отступы сверху и снизу */
+}
+
+@media (max-width: 600px) {
+.auth-container {
+    margin: 20px; /* Отступы для мобильных устройств */
+}
+}
+</style>
