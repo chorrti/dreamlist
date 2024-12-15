@@ -1,4 +1,4 @@
-# WishList - Учебный проект: Список желаний и событий
+# DreamList - Учебный проект: Список желаний и событий
 
 ![image info](backend/static/welcome.png)
 
